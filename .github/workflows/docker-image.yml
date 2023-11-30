@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Docker auth
-      run: echo $DOCKERHUB_SECRET | docker login -u r32main --password-stdin
+      run: echo ${{ secrets.DOCKERHUB_SECRET }} | docker login -u r32main --password-stdin
     - name: Build the Docker image
       run: export VERSION=$(jq -r .version package.json) && docker build . --file Dockerfile --tag r32main/magic-cursor:$VERSION.$GITHUB_RUN_ID
     - name: Docker push
