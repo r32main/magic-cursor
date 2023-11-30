@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8-alpine
 
 LABEL author="Alex Mubarakshin"
 
@@ -11,6 +11,6 @@ RUN npm install
 COPY /client ./client
 COPY /server.js ./
 
-ENV PORT 8080
+ENV PORT 3000
 
 CMD ["sh", "-c", "node server.js -p ${PORT}"]
