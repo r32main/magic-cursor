@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: magic-cursor
+  namespace: magic-cursor
+  labels:
+    app: magic-cursor
+spec:
+  ports:
+    - port: 3000
+  selector:
+    app: magic-cursor
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magic-cursor
+  namespace: magic-cursor
+  labels:
+    app: magic-cursor
+spec:
+  selector:
+    matchLabels:
+      app: magic-cursor
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: magic-cursor
+    spec:
+      containers:
+      - image: r32main/magic-cursor:1.0.0.7050049024
+        name: magic-cursor
+        ports:
+        - containerPort: 3000
+          name: magic-cursor
